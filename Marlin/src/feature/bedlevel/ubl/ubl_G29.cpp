@@ -447,7 +447,7 @@
             if (g29_verbose_level > 1) {
               SERIAL_ECHOPAIR("Probing around (", g29_pos.x);
               SERIAL_CHAR(',');
-              SERIAL_ECHO(g29_pos.y);
+              SERIAL_DECIMAL(g29_pos.y);
               SERIAL_ECHOLNPGM(").\n");
             }
             const xy_pos_t near = g29_pos + probe_offset;

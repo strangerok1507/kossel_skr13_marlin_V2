@@ -726,11 +726,8 @@ float probe_at_point(const float &rx, const float &ry, const ProbePtRaise raise_
       if (STOW_PROBE()) measured_z = NAN;
   }
 
-  if (verbose_level > 2) {
-    SERIAL_ECHOPAIR_F("Bed X: ", LOGICAL_X_POSITION(rx), 3);
-    SERIAL_ECHOPAIR_F(" Y: ", LOGICAL_Y_POSITION(ry), 3);
-    SERIAL_ECHOLNPAIR_F(" Z: ", measured_z, 3);
-  }
+  if (verbose_level > 2) 
+    SERIAL_ECHOLNPAIR("Bed X: ", LOGICAL_X_POSITION(rx), " Y: ", LOGICAL_Y_POSITION(ry), " Z: ", measured_z);
 
   feedrate_mm_s = old_feedrate_mm_s;
 
