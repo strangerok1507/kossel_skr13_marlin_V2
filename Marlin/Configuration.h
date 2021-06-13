@@ -660,9 +660,9 @@
   #define DELTA_CALIBRATION_MENU
 
   // uncomment to add G33 Delta Auto-Calibration (Enable EEPROM_SETTINGS to store results)
-  #if ANYCUBIC_PROBE_VERSION > 0
+  // #if ANYCUBIC_PROBE_VERSION > 0
     #define DELTA_AUTO_CALIBRATION
-  #endif
+  // #endif
 
   // NOTE NB all values for DELTA_* values MUST be floating point, so always have a decimal point in them
 
@@ -725,9 +725,9 @@
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
 //#define USE_XMIN_PLUG
 //#define USE_YMIN_PLUG
-#if ANYCUBIC_PROBE_VERSION > 0
+// #if ANYCUBIC_PROBE_VERSION > 0
   #define USE_ZMIN_PLUG // a Z probe
-#endif
+// #endif
 #define USE_XMAX_PLUG
 #define USE_YMAX_PLUG
 #define USE_ZMAX_PLUG
@@ -744,6 +744,8 @@
   //#define ENDSTOPPULLUP_ZMIN
   //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
+
+#define ENDSTOPPULLUP_ZMIN_PROBE
 
 // Enable pulldown for all endstops to prevent a floating state
 //#define ENDSTOPPULLDOWNS
@@ -765,7 +767,7 @@
 #define X_MAX_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false  // Set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING Z_MIN_ENDSTOP_INVERTING
+#define Z_MIN_PROBE_ENDSTOP_INVERTING false
 
 /**
  * Stepper Drivers
@@ -944,9 +946,9 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-#if ANYCUBIC_PROBE_VERSION > 0
+// #if ANYCUBIC_PROBE_VERSION > 0
   #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-#endif
+// #endif
 
 /**
  * Z_MIN_PROBE_PIN
@@ -978,18 +980,18 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-#if ANYCUBIC_PROBE_VERSION == 0
-  #define PROBE_MANUALLY
-  #define MANUAL_PROBE_START_Z 1.5
-#endif
+// #if ANYCUBIC_PROBE_VERSION == 0
+//   #define PROBE_MANUALLY
+//   #define MANUAL_PROBE_START_Z 1.5
+// #endif
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-#if ANYCUBIC_PROBE_VERSION > 0
-  #define FIX_MOUNTED_PROBE
-#endif
+// #if ANYCUBIC_PROBE_VERSION > 0
+//   #define FIX_MOUNTED_PROBE
+// #endif
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -1000,7 +1002,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-//#define BLTOUCH
+#define BLTOUCH
 
 /**
  * Touch-MI Probe by hotends.fr
@@ -1086,12 +1088,13 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
+
 #if ANYCUBIC_PROBE_VERSION == 2
-  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, -0.1 }
+  #define NOZZLE_TO_PROBE_OFFSET { 0, -32.5, -0 }
 #elif ANYCUBIC_PROBE_VERSION == 1
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, -19.0 }
 #else
-  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
+  #define NOZZLE_TO_PROBE_OFFSET { 0, -32.5, -0 }
 #endif
 
 // Certain types of probes need to stay away from edges
@@ -1144,12 +1147,10 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-#if ANYCUBIC_PROBE_VERSION > 0
-  #define Z_MIN_PROBE_REPEATABILITY_TEST
-#endif
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
-#define PAUSE_BEFORE_DEPLOY_STOW
+// #define PAUSE_BEFORE_DEPLOY_STOW
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
   //#define PAUSE_PROBE_DEPLOY_WHEN_TRIGGERED // For Manual Deploy Allenkey Probe
 #endif
@@ -1335,14 +1336,14 @@
  *   leveling in steps so you can manually adjust the Z height at each grid-point.
  *   With an LCD controller the process is guided step-by-step.
  */
-#if ANYCUBIC_PROBE_VERSION == 0
-  #define AUTO_BED_LEVELING_3POINT
-#else
+// #if ANYCUBIC_PROBE_VERSION == 0
+  // #define AUTO_BED_LEVELING_3POINT
+// #else
 //#define AUTO_BED_LEVELING_LINEAR
   #define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
-#endif
+// #endif
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable
@@ -2383,10 +2384,13 @@
 // (ms) Delay  before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
 // If the servo can't reach the requested position, increase it.
+// #define SERVO_DELAY { 3 }
+
 #define SERVO_DELAY { 300 }
 
 // Only power servos during movement, otherwise leave off to prevent jitter
-//#define DEACTIVATE_SERVOS_AFTER_MOVE
+#define DEACTIVATE_SERVOS_AFTER_MOVE
 
 // Allow servo angle to be edited and saved to EEPROM
 //#define EDITABLE_SERVO_ANGLES
+#define MIN_PROBE_EDGE_FRONT
